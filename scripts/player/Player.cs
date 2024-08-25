@@ -10,13 +10,13 @@ public partial class Player : GravityObj
 	{
 		base._PhysicsProcess(delta);
 
-		planetForward = cam.up().Cross(-grav).Cross(-grav);
-		planetRight = cam.right().Cross(-grav).Cross(-grav);
+		planetForward = cam.up().Cross(grav).Cross(grav).Normalized();
+		planetRight = cam.right().Cross(grav).Cross(grav).Normalized();
 		
 		float right = Input.GetActionStrength("moveLeft") - Input.GetActionStrength("moveRight");
 		float forward = Input.GetActionStrength("moveBackward") - Input.GetActionStrength("moveForward");
 
 
-		// MoveAndCollide((planetForward * forward + planetRight * right) * (float)delta);
+		MoveAndCollide((planetForward * forward + planetRight * right) * (float)delta);
 	}
 }
