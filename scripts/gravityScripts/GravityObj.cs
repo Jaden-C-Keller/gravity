@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using Godot;
 
 public abstract partial class GravityObj : CharacterBody3D{
-    public GravityList list;
+    [Export]
+    protected float gravityStrength = 2.0f;
+    GravityList list;
     protected Vector3 grav = Vector3.Down;
 
     public override void _Ready(){
@@ -18,9 +20,27 @@ public abstract partial class GravityObj : CharacterBody3D{
             grav = Vector3.Down;
         }
 
-        Velocity += grav * (float)delta;
         UpDirection = -grav;
-        Velocity = Velocity.LimitLength(10f);
-        MoveAndSlide();
+        if(Velocity != Vector3.Zero && grav != Vector3.Zero){
+            int direction = Velocity.Dot(grav) < 0f ? -1 : 1;
+            Velocity = new Quaternion(Velocity, grav * direction).Normalized() * Velocity;
+        }
+
+        // Velocity += grav * (float)delta;
+        // MoveAndSlide();
+        if(!MoveAndSlide()){
+            Velocity += grav * gravityStrength * (float)delta;
+        }
+        else if(IsOnFloor()){
+            Velocity = Vector3.Zero;
+        }
+    }
+
+    public void add(GravityField field){
+        list.add(field);
+    }
+
+    public void remove(GravityField field){
+        list.remove(field);
     }
 }

@@ -14,6 +14,10 @@ public partial class cam : Camera3D
 		return instance.Basis.Y;
 	}
 
+	public static Vector3 forward(){
+		return instance.Basis.Z;
+	}
+
 	public static Vector3 right(){
 		return instance.Basis.X;
 	}
