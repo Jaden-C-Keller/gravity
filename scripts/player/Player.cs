@@ -3,8 +3,11 @@ using System;
 
 public partial class Player : GravityObj
 {
+	float speed = 50f;
+
 	[Export]
 	float jumpStrength = 1.0f;
+
 	[Export]
 	Node3D mesh;
 	
@@ -39,7 +42,7 @@ public partial class Player : GravityObj
 		float forward = Input.GetActionStrength("moveBackward") - Input.GetActionStrength("moveForward");
 
 		if(Input.IsActionJustPressed("jump") && IsOnFloor()){
-			Velocity = UpDirection * jumpStrength;
+			vertVel = UpDirection * jumpStrength;
 		}
 
 		move = (planetForward * forward + planetRight * right).Normalized();
@@ -52,6 +55,7 @@ public partial class Player : GravityObj
 
 		mesh.Transform = mesh.Transform.InterpolateWith(mesh.Transform.LookingAt(lastMove, UpDirection), 5 * (float)delta);
 
-		MoveAndCollide(move * (float)delta);
+		horzVel = move * speed * (float)delta;
+		// MoveAndCollide(move * (float)delta);
 	}
 }

@@ -7,6 +7,8 @@ public abstract partial class GravityObj : CharacterBody3D{
     protected float gravityStrength = 2.0f;
     GravityList list;
     protected Vector3 grav = Vector3.Down;
+    protected Vector3 vertVel = Vector3.Zero;
+    protected Vector3 horzVel = Vector3.Zero;
 
     public override void _Ready(){
         list = new GravityList();
@@ -21,19 +23,21 @@ public abstract partial class GravityObj : CharacterBody3D{
         }
 
         UpDirection = -grav;
-        if(Velocity != Vector3.Zero && grav != Vector3.Zero){
-            int direction = Velocity.Dot(grav) < 0f ? -1 : 1;
-            Velocity = new Quaternion(Velocity, grav * direction).Normalized() * Velocity;
+        if(vertVel != Vector3.Zero && grav != Vector3.Zero){
+            int direction = vertVel.Dot(grav) < 0f ? -1 : 1;
+            vertVel = new Quaternion(vertVel, grav * direction).Normalized() * vertVel;
         }
 
-        // Velocity += grav * (float)delta;
-        // MoveAndSlide();
+        Velocity = vertVel + horzVel;
+        
         if(!MoveAndSlide()){
-            Velocity += grav * gravityStrength * (float)delta;
+            vertVel += grav * gravityStrength * (float)delta;
         }
         else if(IsOnFloor()){
-            Velocity = Vector3.Zero;
+            vertVel = Vector3.Zero;
         }
+
+
     }
 
     public void add(GravityField field){
