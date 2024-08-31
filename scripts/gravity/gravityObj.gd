@@ -1,3 +1,4 @@
+@tool
 class_name gravityObj extends CharacterBody3D
 class planetDir:
 	var forward := Vector3.FORWARD
@@ -25,6 +26,8 @@ func _ready() -> void:
 	planet = planetDir.new()
 
 func _physics_process(delta: float) -> void:
+	if Engine.is_editor_hint():
+		return
 	oldGrav = grav
 	getGrav()
 	
@@ -58,3 +61,14 @@ func getGrav():
 		planet.normalize()
 		if grav != Vector3.ZERO:
 			return
+
+#@export
+#var debugField: gravityField
+#func _process(_delta):
+	#print(type_string(typeof(debugField)))
+	#if Engine.is_editor_hint() and debugField != null:
+		#return
+		#debugField.test()
+		#debugField.getGrav(position, planet)
+		#DebugDraw3D.draw_arrow_ray(position, planet.forward, 1)
+		#DebugDraw3D.draw_arrow_ray(position, planet.right, 1)

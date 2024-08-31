@@ -1,3 +1,4 @@
+@tool
 class_name gravityField extends Area3D
 
 func _ready() -> void:
@@ -11,6 +12,9 @@ func _entered(body):
 
 func _exited(body):
 	body.remove(self)
+
+func test():
+	print("test")
 
 func getGrav(_pos: Vector3, _planet: gravityObj.planetDir) -> Vector3:
 	return Vector3.ZERO

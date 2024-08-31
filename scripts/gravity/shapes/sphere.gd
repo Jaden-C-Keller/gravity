@@ -1,3 +1,4 @@
+@tool
 extends gravityField
 
 func getGrav(pos: Vector3, planet: gravityObj.planetDir) -> Vector3:
