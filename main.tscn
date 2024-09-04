@@ -1,11 +1,10 @@
-[gd_scene load_steps=19 format=3 uid="uid://cdrm22ildw7e0"]
+[gd_scene load_steps=18 format=3 uid="uid://cdrm22ildw7e0"]
 
 [ext_resource type="Script" path="res://scripts/gravity/shapes/sphere.gd" id="1_0g41f"]
 [ext_resource type="Script" path="res://scripts/player/cam.gd" id="1_wwuia"]
 [ext_resource type="Script" path="res://scripts/player/player.gd" id="2_3auov"]
 [ext_resource type="Shader" path="res://scripts/shaders/silhouette.gdshader" id="3_v7yqw"]
 [ext_resource type="Script" path="res://scripts/gravity/shapes/torus.gd" id="4_ubv7w"]
-[ext_resource type="Script" path="res://scripts/gravity/gravityObj.gd" id="6_0ui0n"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_pqlvj"]
 
@@ -48,7 +47,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5)
 script = ExtResource("1_wwuia")
 
 [node name="player" type="CharacterBody3D" parent="." node_paths=PackedStringArray("mesh")]
-transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, -1.38176, 0.412569, 0.665838)
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, -1.56896, 0.412569, 0.815497)
 script = ExtResource("2_3auov")
 jumpStrength = 1.7
 mesh = NodePath("MeshInstance3D")
@@ -72,7 +71,7 @@ mesh = SubResource("SphereMesh_dpmh6")
 surface_material_override/0 = SubResource("StandardMaterial3D_0on8q")
 
 [node name="sphere" type="StaticBody3D" parent="."]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 20)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="sphere"]
 shape = SubResource("SphereShape3D_4beub")
@@ -82,6 +81,8 @@ mesh = SubResource("SphereMesh_c4sbb")
 
 [node name="Area3D" type="Area3D" parent="sphere"]
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
+collision_layer = 2
+collision_mask = 2
 script = ExtResource("1_0g41f")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="sphere/Area3D"]
@@ -89,7 +90,7 @@ transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 
 shape = SubResource("CylinderShape3D_hxb0u")
 
 [node name="sphere2" type="StaticBody3D" parent="."]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 20)
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="sphere2"]
 shape = SubResource("SphereShape3D_4beub")
@@ -99,13 +100,15 @@ mesh = SubResource("SphereMesh_c4sbb")
 
 [node name="Area3D" type="Area3D" parent="sphere2"]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+collision_layer = 2
+collision_mask = 2
 script = ExtResource("1_0g41f")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="sphere2/Area3D"]
 shape = SubResource("SphereShape3D_c3asi")
 
 [node name="torus" type="StaticBody3D" parent="."]
-transform = Transform3D(4, 0, 0, 0, -1.74846e-07, -4, 0, 4, -1.74846e-07, 0, 0, 0)
+transform = Transform3D(4, 0, 0, 0, -1.74846e-07, -4, 0, 4, -1.74846e-07, 0, 0, 20)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="torus"]
 mesh = SubResource("TorusMesh_376jt")
@@ -114,6 +117,8 @@ mesh = SubResource("TorusMesh_376jt")
 shape = SubResource("ConcavePolygonShape3D_loqj7")
 
 [node name="Area3D" type="Area3D" parent="torus"]
+collision_layer = 2
+collision_mask = 2
 script = ExtResource("4_ubv7w")
 radius = 0.625
 
@@ -121,10 +126,3 @@ radius = 0.625
 shape = SubResource("CylinderShape3D_kk51s")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-
-[node name="gravityObj" type="CharacterBody3D" parent="." node_paths=PackedStringArray("debugField")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.58837, 0, 0.646096)
-collision_layer = 3
-velocity = Vector3(0, -93.8784, 0)
-script = ExtResource("6_0ui0n")
-debugField = NodePath("../torus/Area3D")

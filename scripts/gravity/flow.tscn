@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dm8mqidcsi5so"]
+
+[ext_resource type="Script" path="res://scripts/gravity/flowVisual.gd" id="1_hoatn"]
+
+[node name="Flow" type="Node3D"]
+script = ExtResource("1_hoatn")

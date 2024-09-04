@@ -1,21 +1,9 @@
-@tool
 class_name gravityObj extends CharacterBody3D
-class planetDir:
-	var forward := Vector3.FORWARD
-	var right := Vector3.RIGHT
-	
-	func normalize():
-		forward = forward.normalized()
-		right = right.normalized()
-	
-	func negate():
-		forward *= -1
-		right *= -1
 
 @export
 var gravStrength: float = 1.5
 
-var planet: planetDir
+var planet: gravityField.planetDir
 var list: Array[gravityField]
 var grav := Vector3.DOWN
 var oldGrav: Vector3
@@ -23,11 +11,9 @@ var rot: Quaternion
 
 func _ready() -> void:
 	collision_layer = 3
-	planet = planetDir.new()
+	planet = gravityField.planetDir.new()
 
 func _physics_process(delta: float) -> void:
-	if Engine.is_editor_hint():
-		return
 	oldGrav = grav
 	getGrav()
 	
@@ -57,18 +43,7 @@ func remove(field: gravityField):
 func getGrav():
 	grav = Vector3.ZERO
 	for field in list:
-		grav = field.getGrav(position, planet).normalized()
-		planet.normalize()
+		grav = field.getGrav(global_position, planet).normalized()
+		#planet.normalize()
 		if grav != Vector3.ZERO:
 			return
-
-#@export
-#var debugField: gravityField
-#func _process(_delta):
-	#print(type_string(typeof(debugField)))
-	#if Engine.is_editor_hint() and debugField != null:
-		#return
-		#debugField.test()
-		#debugField.getGrav(position, planet)
-		#DebugDraw3D.draw_arrow_ray(position, planet.forward, 1)
-		#DebugDraw3D.draw_arrow_ray(position, planet.right, 1)

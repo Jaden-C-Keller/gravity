@@ -23,8 +23,7 @@ func _physics_process(delta: float) -> void:
 	var forward:float =  Input.get_action_strength("moveForward") - Input.get_action_strength("moveBack")
 	
 	move = (planet.forward * forward + planet.right * right).normalized()
-	if cam.forward().dot(grav) < 0:
-		move *= -1
+	move -= move.dot(grav) * grav
 	
 	velocity += move * speed * delta
 	
