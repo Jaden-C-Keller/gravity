@@ -1,10 +1,8 @@
-@tool
 extends gravityField
 
 func _ready() -> void:
+	super()
 	
-	flow.instantiate()
-	pass
 
 func getGrav(pos: Vector3, planet: planetDir) -> Vector3:
 	var grav:Vector3 = (global_position - pos).normalized()

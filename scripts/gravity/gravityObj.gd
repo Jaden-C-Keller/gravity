@@ -44,6 +44,6 @@ func getGrav():
 	grav = Vector3.ZERO
 	for field in list:
 		grav = field.getGrav(global_position, planet).normalized()
-		#planet.normalize()
+		planet.normalize()
 		if grav != Vector3.ZERO:
 			return

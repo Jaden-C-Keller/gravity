@@ -1,7 +1,5 @@
-@tool
 class_name flowVisual extends Node3D
 
-@export
 var field:gravityField
 
 func _physics_process(_delta: float) -> void:

@@ -1,4 +1,3 @@
-@tool
 class_name gravityField extends Area3D
 var flow = preload("res://scripts/gravity/flow.tscn")
 
@@ -28,3 +27,9 @@ func _exited(body):
 
 func getGrav(_pos: Vector3, _planet: planetDir) -> Vector3:
 	return Vector3.ZERO
+
+func addFlow(pos: Vector3):
+	var instance:flowVisual = flow.instantiate()
+	instance.position = pos
+	instance.field = self
+	add_child(instance)

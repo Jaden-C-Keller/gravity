@@ -47,7 +47,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5)
 script = ExtResource("1_wwuia")
 
 [node name="player" type="CharacterBody3D" parent="." node_paths=PackedStringArray("mesh")]
-transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, -1.56896, 0.412569, 0.815497)
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, -1.31211, 0.412569, 0.769371)
 script = ExtResource("2_3auov")
 jumpStrength = 1.7
 mesh = NodePath("MeshInstance3D")
@@ -120,7 +120,7 @@ shape = SubResource("ConcavePolygonShape3D_loqj7")
 collision_layer = 2
 collision_mask = 2
 script = ExtResource("4_ubv7w")
-radius = 0.625
+radius = 2.5
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="torus/Area3D"]
 shape = SubResource("CylinderShape3D_kk51s")
